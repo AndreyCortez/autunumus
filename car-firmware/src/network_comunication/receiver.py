@@ -1,0 +1,3 @@
+
+class receiver:
+    pass
