@@ -1,1 +1,6 @@
 .idea
+.vscode
+
+improc/datasets/*
+improc/model/*
+improc/runs/*

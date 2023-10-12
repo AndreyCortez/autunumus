@@ -5,13 +5,13 @@
 struct can_frame canMsg;
 MCP2515 mcp2515(10);
 
-#define motor_esquerdo_pwm 6
-#define motor_esquerdo_in1 A0
-#define motor_esquerdo_in2 A1
+#define motor_esquerdo_pwm 5
+#define motor_esquerdo_in1 7
+#define motor_esquerdo_in2 2
 
-#define motor_direito_pwm 5
-#define motor_direito_in3 A2
-#define motor_direito_in4 A3
+#define motor_direito_pwm 6
+#define motor_direito_in3 3
+#define motor_direito_in4 4
 
 void debug_messages(can_frame msg)
 {
@@ -63,10 +63,11 @@ void loop()
 
         if (canMsg.can_id == 2 && canMsg.can_dlc == 2)
         {
-            analogWrite(motor_esquerdo_pwm, canMsg.data[0]);
-            analogWrite(motor_esquerdo_pwm, abs(canMsg.data[1] - 127) * 2);
-            digitalWrite(motor_direito_in3, canMsg.data[1] > 127);
-            digitalWrite(motor_direito_in4, canMsg.data[1] < 127);
+            Serial.println("Setando potencia pros motores");
+            analogWrite(motor_direito_pwm, canMsg.data[0]);
+            analogWrite(motor_esquerdo_pwm, canMsg.data[1]);
+            // digitalWrite(motor_direito_in3, canMsg.data[1] > 127);
+            // digitalWrite(motor_direito_in4, canMsg.data[1] < 127);
         }
     }
 }
