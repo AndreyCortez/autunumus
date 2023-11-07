@@ -1,26 +1,18 @@
 import pygame
 import sys
 import socket
+import time
 
 
 ################################### Comunicação com a toradex ########################
 
-ip_servidor = '192.168.15.24'  
+# 192.168.15.119
+ip_servidor = '192.168.15.119'  
 porta_servidor = 12345
 
 cliente = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 cliente.connect((ip_servidor, porta_servidor))
-
-while 1:
-    # Recebe mensagens do servidor
-    mensagem = cliente.recv(1024).decode()
-    print(f"Servidor diz: {mensagem}")
-    if mensagem == "encerrar":
-        break
-
-# Fecha a conexão do cliente
-cliente.close()
 
 
 #################################### Interface Visual #################################
@@ -46,9 +38,6 @@ circle_radius_limit = 200
 
 circle_speed = 5
 
-left_trigger = 0.0
-right_trigger = 0.0
-
 gamepad_connected = False
 
 pygame.joystick.init()
@@ -64,8 +53,20 @@ def clamp(minimum, x, maximum):
 
 debug_text = ""
 
+############## LOOP DE EXECUÇÂO #################
+
 running = True
+
+x_axis = 0.0
+y_axis = 0.0
+left_trigger = 0.0
+right_trigger = 0.0
+
+
 while running:
+
+    ########################### PARTE DE PEGAR INPUT DO CONTROLE E INTERFACE DE DEBUG ####################
+
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
@@ -112,5 +113,14 @@ while running:
 
     pygame.display.flip()
 
+    ######################### PARTE DE COMUNICAÇÂO COM O SERVIDOR ##############################
+
+    mensagem = f"{x_axis},{y_axis},{left_trigger},{right_trigger}"
+    cliente.send(mensagem.encode())
+    time.sleep(0.02)
+
+    
+
+cliente.close()
 pygame.quit()
 sys.exit()
