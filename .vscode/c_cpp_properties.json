@@ -18,6 +18,7 @@
             "includePath": [
                 "/home/andrey/.arduino15/packages/arduino/hardware/avr/1.8.6/cores/arduino",
                 "/home/andrey/.arduino15/packages/arduino/hardware/avr/1.8.6/variants/standard",
+                "/home/andrey/Arduino/libraries/MsTimer2",
                 "/home/andrey/.arduino15/packages/arduino/hardware/avr/1.8.6/libraries/SPI/src",
                 "/home/andrey/Arduino/libraries/arduino-mcp2515-1.2.0",
                 "/home/andrey/.arduino15/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/lib/gcc/avr/7.3.0/include",

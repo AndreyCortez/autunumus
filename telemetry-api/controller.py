@@ -2,11 +2,16 @@ import pygame
 import sys
 import socket
 import time
+import cv2
+import pickle
+import struct
 
 
 ################################### Comunicação com a toradex ########################
 
-# 192.168.15.119
+# 192.168.15.119 Casa
+# 192.168.15.20
+# 192.168.55.218 bruno 
 ip_servidor = '192.168.15.119'  
 porta_servidor = 12345
 
@@ -52,6 +57,12 @@ def clamp(minimum, x, maximum):
     return max(minimum, min(x, maximum))
 
 debug_text = ""
+
+#################### CV2 PRA VER AS IMAGENS RECEBIDAS #################
+
+
+cv2.namedWindow('Imagem do Servidor', cv2.WINDOW_NORMAL)
+
 
 ############## LOOP DE EXECUÇÂO #################
 
@@ -115,9 +126,40 @@ while running:
 
     ######################### PARTE DE COMUNICAÇÂO COM O SERVIDOR ##############################
 
-    mensagem = f"{x_axis},{y_axis},{left_trigger},{right_trigger}"
+    mensagem = f"{x_axis},{y_axis},{left_trigger},{right_trigger}\n"
+    print(mensagem)
     cliente.send(mensagem.encode())
     time.sleep(0.02)
+
+    ########################## PARTE DE RECEBER MENSAGENS ######################################
+
+    # print("recebendo mensagem")
+    # data = b''
+    # while len(data) < struct.calcsize("L"):
+    #     data += cliente.recv(4096)
+
+    # packed_msg_size = data[:struct.calcsize("L")]
+    # data = data[struct.calcsize("L"):]
+
+    # msg_size = struct.unpack("L", packed_msg_size)[0]
+
+    # # Recebe o quadro serializado
+    # while len(data) < msg_size:
+    #     data += cliente.recv(4096)
+
+    # frame_data = data[:msg_size]
+    # data = data[msg_size:]
+
+    # # Deserializa o quadro
+    # frame = pickle.loads(frame_data)
+
+    # # Exibe o quadro
+    # cv2.imshow('Imagem do Servidor', frame)
+    
+    # # Espera por uma tecla 'q' para encerrar a visualização
+    # key = cv2.waitKey(1) & 0xFF
+    # if key == ord('q'):
+    #     break
 
     
 

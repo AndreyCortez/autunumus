@@ -6,4 +6,4 @@ improc/model/*
 improc/runs/*
 improc/tools/temp/*
 improc/tools/fsoco-dataset
-
+improc/vendor/*

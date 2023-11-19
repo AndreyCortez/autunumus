@@ -11,9 +11,11 @@ RUN apt-get -y update && apt-get install -y \
     iproute2 \ 
     can-utils \ 
     python3-can \ 
+    libopencv-dev \
+    python3-opencv\
     && apt-get clean && apt-get autoremove && rm -rf /var/lib/apt/lists/*  
 
-COPY requirements.txt /app/
+# COPY requirements.txt /app/
 
 # RUN pip install -r requirements.txt
 

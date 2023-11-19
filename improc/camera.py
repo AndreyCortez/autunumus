@@ -35,7 +35,7 @@ while(True):
             for box in boxes:
                 
                 b = box.xyxy[0]  # get box coordinates in (top, left, bottom, right) format
-                distance = CONE_HEIGHT_CONSTANT / (b[2] - b[0])
+                distance = CONE_HEIGHT_CONSTANT / (b[1] - b[3])
                 annotator.box_label(b, str(distance.item()))
         
     img = annotator.result()  
